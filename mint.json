@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Starter Kit",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/light.svg",
+    "light": "/logo/dark.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -17,13 +17,17 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Discord",
+      "url": "https://discord.gg/unidex"
+    },
+    {
+      "name": "Telegram",
+      "url": "https://t.me/unidexfinance"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Start Trading",
+    "url": "https://www.unidex.exchange/"
   },
   "tabs": [
     {
@@ -33,29 +37,68 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Discord",
+      "icon": "Discord",
+      "url": "https://discord.gg/unidex"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Telegram",
+      "icon": "Telegram",
+      "url": "https://t.me/unidexfinance"
     },
     {
-      "name": "Blog",
+      "name": "Mirror Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://mirror.xyz/unidexexchange.eth"
+    },
+    {
+      "name": "Swap App",
+      "icon": "money-bill-wheat",
+      "url": "https://app.unidex.exchange/"
+    },
+    {
+      "name": "Perps Trading",
+      "icon": "chart-line",
+      "url": "https://leverage.unidex.exchange/"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "group": "Leverage Trading",
+      "pages": [
+        {
+            "group": "Native Perps",
+            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Hooks", "Leverage-Trading/Fees", "Leverage-Trading/Pair Specs"]
+        },
+        {
+          "group": "Aggregated Perps",
+          "pages": ["perpaggregation/Design overview", "perpaggregation/Fees", "perpaggregation/AccountAbstraction", "perpaggregation/AggregatedPlatforms"]
+        },
+        {
+          "group": "Forge SDK / Whitelabel",
+          "pages": ["forge/Sdk", "forge/Whitelabel"]
+        }
+              ]
     },
     {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "group": "Swap Aggregation",
+      "pages": ["swaps/markdown", "swaps/code", "swaps/images", "swaps/settings", "swaps/navigation"]
+    },
+    {
+      "group": "Obsidian RPC",
+      "pages": ["rpc/markdown", "rpc/code", "rpc/images", "rpc/settings", "rpc/navigation"]
+    },
+    {
+      "group": "Molten OP Stack Chain",
+      "pages": ["appchain/markdown", "appchain/code", "appchain/images", "appchain/settings", "appchain/navigation"]
+    },
+    {
+      "group": "Token Information",
+      "pages": ["token/markdown", "token/code", "token/images", "token/settings", "token/navigation"]
+    },
+    {
+      "group": "Misc",
+      "pages": ["miscpage/markdown", "miscpage/code", "miscpage/images", "miscpage/settings", "miscpage/navigation"]
     },
     {
       "group": "API Documentation",
@@ -71,8 +114,9 @@
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/unidexfinance",
+    "github": "https://github.com/unidexfinance",
+    "discord": "https:/discord.gg/unidex",
+    "telegram": "https://t.me/unidexfinance"
   }
 }
