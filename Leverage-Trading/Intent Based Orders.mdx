@@ -1,17 +1,21 @@
 ---
 title: 'Intent Based Orders'
-description: 'Example section for showcasing API endpoints'
+description: 'This page covers all things conditional orders, such as limit orders, stop losses, automated trade coverage, and more'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Introduction
 
-## Welcome
+When designing a limit order system, we wanted to change how people imagine limit orders on-chain and make a system that feels closer to what DeFi can offer. Enter intent based smart conditional orders that execute according to custom logic rather than binary conditions.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+The way these work is similar to any other limit order solution, except it can be more thought out as a set of instructions you would pass to an Ai chat bot. An example of the modern limit order solution would be having a take profit order & stoploss order which executes once the binary condition is met.
 
+UniDex limit orders on the other hand, execute based on a set of instructions that keepers can understand and translate.
+
+Want your BTC Long trade to have a stop loss if the SPY dips below a certain value? ETH Short opened if SOL crosses a specific value? 
+
+Maybe a BTC short opened if TWAP price hits a particular value, or even TWAP out of your existing trade in set intervals?
+
+Keepers also have a record of every pending limit order and unexecuted market orders. This lets the keeper ALWAYS have perfect execution and the ability to execute missed trades. "Look backs" are possible where the keeper "looks back" at previously un-executed market orders and oracle prices to execute any missed trades in 1 minute intervals.
 <Card
   title="Plant Store Endpoints"
   icon="leaf"

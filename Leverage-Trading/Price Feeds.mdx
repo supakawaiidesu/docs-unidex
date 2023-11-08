@@ -1,33 +1,23 @@
 ---
-title: 'Pair Specs'
-description: 'Example section for showcasing API endpoints'
+title: 'Price Feeds'
 ---
 
+
+
+## Overview
+
+UniDex offers a wide range of trading pairs for various markets, utilizing aggregated pricing sources from multiple similar endpoints to provide a dynamic average. All the computation is done off-chain and returned on-chain with a submitted price, and a verifiable record history of all past submitted prices.
+
+These pricefeeds can be secured using a reference onchain oracle, with a preference for chainlink feeds due to their consensus-based approach to finding trusted answers similar to UniDex's aggregated price. However, any reference oracle can be soft-pegged to the pricefeed of a specific trading pair.
+
+
+## Spreads & Market Making
+
+All orders go through an execution queue and are priced according to pool risk. Larger orders will receive an entry with a larger spread than smaller orders based on the current volatility, average orderbook depth, and other variables to calculate the appropriate risk. 
+
+We show an expected price impact for orders on the UI based on the current average however, your order may receive a worse entry as its being settled. 
+
+To combat that, users can also adjust their slippage to account for blockchain latency and other factors that may cause their order to be filled at a worse price than expected.
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  Some pools are still UniDex native but managed externally by a Hook operator. The Hook operator is responsible for pricing strategies and can set the spread for the pool. While the user is aware routing and pricing on the UI in realtime.
 </Note>
-
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
-
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```

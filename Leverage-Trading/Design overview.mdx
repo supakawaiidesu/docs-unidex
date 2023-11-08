@@ -1,33 +1,36 @@
 ---
 title: 'Design overview'
-description: 'Example section for showcasing API endpoints'
+description: 'Platform design overview'
 ---
-
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
 
 ## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+UniDex provides three distinct advantages over other individual platforms offering perpetuals in DeFi.
+
+1. Using the UI, leverage trades are aggregated and orders are executed against the best rate against multiple leverage protocols, including perpetual protocol, GMX, SNX, and GNS.
+2. Any trading pair is supportable on the platform. This means traders can access any market so long as they have access to the internet. Custom ETFs, crypto, indices, and more are all available to the user.
+3. An intent based architecture allowing customizable pools, trading strategies, and more to be built on top of the platform. Our pools are designed to be composable, allowing for the creation of new pools with unique strategies and risk profiles. 
+
+
+## How it works
+
+
+### Leverage trading
+Users can access the protocol by visiting any Forge SDK connected frontend such as our hosted frontned.
+
+Different features can be accessed through various frontends while this page will focus on the core protocol.
+### Leverage aggregation
+The protocol is designed to aggregate leverage trades across multiple protocols to offer the deepest liquidity and optimal trade routes.
+
+UniDex was the 1st to do this in DeFi dating back to early 2021, and we're constinuously improving our aggregation algorithm to better suite the growing ecosystem.
+
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+  title="PrMM Pools"
+  icon="notes"
+  href="https://mirror.xyz/unidexexchange.eth/eYixQv1IIb5aBLl2EQH-ac83s6cr9h8c4wgcUcWR5Hc"
 >
-  View the OpenAPI specification file
+  View our annoucement about PrMM pools & intents on Mirror
 </Card>
 
-## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```

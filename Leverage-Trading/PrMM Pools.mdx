@@ -1,33 +1,37 @@
 ---
 title: 'PrMM Pools'
-description: 'Example section for showcasing API endpoints'
+description: 'Redefining market making pools in DeFi'
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+This feature is currently in beta. Please contact us if you would like to build on top of UniDex and be a whitelisted Hook operator with SDK access.
 </Note>
 
-## Welcome
+## PrMM pools
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+We call our market making pools PrMM pools. 
+PrMM pools are a new type of liquidity pool that allows users to provide liquidity to a pool and earn fees, while also giving complete control to LPs for their market making strategies. 
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+PrMM pools are designed to be flexible and adaptable to any market making strategy. Based on the concept from UniswapV4 Hooks, PrMM pools allow builders to create their own customized market making strategies and deploy them as a pool.
 
-## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## Why we made PrMM pools?
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+Current counterparties for Perp DEXs lack flexibility, adaptability, and scalability. For protocols that don’t currently utilize tranches, they suffer from overexposure and lack of adaptability. 
+
+On the other hand, those planning to adopt or already using tranches don't offer control over market-making strategies or allow for tailored risk as it's dictated by the protocol, not the LP's preference. 
+Furthermore, none of these models come with inherent composability features, offloading the burden to external protocols.
+
+PRMM pools take a whole new approach to liquidity for Perp DEXs, combining the best of all market making practices and strategies, housed into a singular modular aggregation protocol.
+
+![PrMM Pool](/images/prmm.png)
+
+
+## What strategies can be made with PrMM pools?
+
+Its entirely up to the hook operator to decide what strategy they want to implement. However, the best way to imagine these hooks are containerized protocols that can be deployed as a pool.
+
+For example, GMXv1 operates as a no price impact, but high fee counterparty pool model. This can be deployed as a PrMM pool, allowing LPs to provide liquidity to the pool which only allows trading on speific pairs, with no price impact, but a higher than normal fee.
+
+Lets run through a more advanced strategy where a hook operator wants to create a pool which automatically enabled trading through keepers on newly listed Binance pairs, and also assigns price impact based on the current binance orderbook.
+![Binance Pool Hook](/images/1930.png)

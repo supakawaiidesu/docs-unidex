@@ -1,33 +1,20 @@
 ---
-title: 'Fees'
-description: 'Example section for showcasing API endpoints'
+title: 'Trading Fees'
 ---
 
+## Surge Fees
+
+
+Trade fees are dynamic. We call this mechanism "Surge Fees" and helps balance OI on the platform. The execution is simple to understand and the math is also easy to grasp. If the open interest is imbalanced 2.0 ( twice as many longs than shorts ), the base fee is increased by 2x on the long side and the short side is decreased by the same percentage. 
+
+So if the base fee for ETH/USD was 0.1% and the openInterestLong was 100 USDC and the openInterestShort was 50 USDC. This will price the fee for longs at 0.2% while the fee to enter short would be 0.05%. This will encourage traders to fill up the minority position side while traders taking the market bias position side pays a higher fee.
+
+## Borrow Fees
+
+
+Interest payments occur at a fixed rate by the second. Some trading pairs which are designed to be short term trades or highly volatile trades could have higher than average interest payments. 
+The value is subtracted from the final PnL on close rather than actual position margin taken from the trade itself.
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+In some other protocols including CEXs, this is usually called "Funding Rate" and is paid by the trader who is in the minority position. In our case, both sides of the position will always pay interest on their position size to the pool.
 </Note>
-
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
-
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```

@@ -1,33 +1,56 @@
 ---
 title: 'Liquidity Pools'
-description: 'Example section for showcasing API endpoints'
+description: ''
 ---
 
+
+## Concept
+
+Any market participant can pool money and provide liquidity for traders on the platform. This action can be compared to market makers in traditional finance in which their liquidity is used by traders on the platform to buy and sell positions of active trading pairs. 
+In simple words, any loses and gains are debited from the liquidity pool.
+
+Similar models include
+- GMX's GLP
+- GainTrade's gDAI
+- MUX's MUXLP
+- CAP's CLP
+- an AMM bot connected to an orderbook
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  Pooling is not risk free. By pooling you are becoming a market maker taking on **both** positive and negative PnL from traders. Which if the total PnL exceeds the liquidity pool, the pool will be at a total loss. Similar to any other pool based model, or market maker in traditional finance.
 </Note>
+## Liquidity providers
 
-## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
-
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+### Sample orderflow
+In order to understand the risks and benefits of becoming a liquidity provider, we must first dive into a simulated trade flow.
 ```
+The liquidity pool has 100 USDC
+
+Alice has 10 USDC
+Alice opens a 1x leverage trade with 5 USDC
+Alice is at a loss of -50% on her open trade and closes this trade to prevent further loss
+
+Alice's total loss is 2.5 USDC which is sent to the pool for a total of 102.5 USDC & Alice is sent back 2.5 USDC to her account.
+the TVL of the pool has now increased to 102.5 for a 2.5% gain for poolers socialized across all poolers.
+
+Similarly, if Bob opens the same position shortly after and gains 2.5 USDC on his trade and closes his position in profit 
+The pool loses 2.5 USDC putting it back to 100 USDC and Bob gains 7.5 USDC (5 Margin USDC + 2.5 USDC PnL)
+The pool balance is now 97.5 USDC for a 2.5% loss for poolers socialized across all poolers.
+```
+All trading pairs with the selected collateral route through that speific pool. So all trades using USDC.e will trade against the USDC.e liquidity pool. All settled PnL is taken / given to the LP which is how liquidity providers are rewarded for their market-making.
+
+LP positions can be thought of as hedging against the collective profit traders make on the platform. Thus it's important to note that LPing is not risk free and comes with risks. 
+
+If there is a prolonged period of traders net PnL being positive month to month, then liquidity providers will have negative APR rates. However, as traders on the platform lose trades, then LP positions will profit from traders losses.
+
+Trading fees are also sent to poolers depending on the PrMM pools config which is displayed on the UI. 
+This helps LPs stay afloat during prolonged onesided and short term extremely volatile markets out of general gains earned through negative trader PnL.
+
+
+
+### Why is this model used?
+
+By providing LP you are going against the traders long term net PnL. As traders lose money then you accrue rewards however, if traders make money then the pool decreases in value which also decreases your claimable amount.
+
+The pool has a variable withdrawal fee and lock period to prevent gaming the system. 
