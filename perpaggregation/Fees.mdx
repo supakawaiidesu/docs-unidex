@@ -1,33 +1,14 @@
 ---
-title: 'Fees'
-description: 'Example section for showcasing API endpoints'
+title: 'Fees charged through Aggregation'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
 
-## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## How does UniDex charge fees?
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+`There are no fees charged by UniDex for aggregated trades` 
 
-## Authentication
+There are fees charged by the underlying protocols however. For example, GMXv1 charges a 0.1% fee on every trade. UniDex does not charge any additional fees on top of this. However, UniDex does pass a referral address to collect a rebate from each aggregated order.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+This lets UniDex traders both save on fees and earn a rebate on every trade by using UniDex. The rebate is currently variable based on the protocol and the size of the trade and the overall volume of our protocol. 
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```

@@ -1,33 +1,95 @@
 ---
 title: 'Pair Specs'
-description: 'Example section for showcasing API endpoints'
+description: 'Section with currently listed pairs and their specs'
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+This list is subject to change. Please check back often for updates.
 </Note>
 
-## Welcome
+## UniDex Pairs
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+| Pair   | Leverage          |   Chains     |         Notes                     |
+| ----------- | ------------------------ | ---------------------- | ---------------------- |
+| BTC/USD | `150x` | All | 
+| ETH/USD | `150x` | All |
+| ETH/BTC | `50x` | All |
+| OP/USD | `50x` | All |
+| ARB/USD | `50x` | All |
+| ADA/USD | `50x` | All |
+| RLB/USD | `3x` | All |
+| BITCOIN/ETH | `3x` | All | Priced in ETH |
+| FRIEND/USD | `2x` | All | Trades the total value locked |
+| GNS/GMX | `5x` | All |
+| ARB/OP | `5x` | All |
+| DEFIINDEX/USD | `20x` | All | AAVE, COMP, CRV, UNI, YFI, LINK, LDO, SNX, BAL, GMX, and 1INCH |
+| PERPINDEX/USD | `20x` | All |  INJ, DYDX, PERP, GNS, GMX, and SNX |
+| L2INDEX/USD | `20x` | All | ARB, OP, MNT, MATIC, LRC, and IMX |
+| EVMINDEX/USD | `20x` | All |  BNB, AVAX, FTM, MATIC, TRX, and ETH |
+| NONEVMINDEX/USD | `20x` | All | BTC, SOL, APT, ADA, SUI, DOT, HBAR, NEAR, ATOM, and ALGO |
+| TOP10INDEX/USD | `20x` | All | BTC, ETH, BNB, XRP, MATIC, ADA, DOGE, SOL, TRX, DOT |
+| TOP5INDEX/USD | `20x` | All | BTC, ETH, BNB, XRP, and ADA |
+| CLASSICINDEX/USD | `20x` | All | BTC, ETH, BNB, XRP, DOGE, LTC, and XMR |
+| CEXINDEX/USD | `20x` | All | BNB, CRO, KCS, OKB, and HT |
+| CHINAINDEX/USD | `20x` | All | BNB, VET, HT, CFX, and FIL |
+| EXCHANGEINDEX/USD | `20x` | All | BNB, UNI, CRO, HT, SNX, RUNE, KCS, CRV, OKB, DYDX, and 1INCH |
+| LSDFIINDEX/USD | `20x` | All |  LDO, RPL, and FXS |
+| DOGE/USD | `50x` | All |
+| GMX/USD | `50x` | All |
+| RNDR/USD | `50x` | All |
+| MATIC/USD | `50x` | All |
+| BNB/USD | `50x` | All |
+| AVAX/USD | `50x` | All |
+| ATOM/USD | `50x` | All |
+| SOL/USD | `50x` | All |
+| XMR/USD | `50x` | All |
+| INJ/USD | `20x` | All |
+| TIA/USD | `20x` | All |
+| LTC/USD | `50x` | All |
+| LINK/USD | `50x` | All |
+| NEAR/USD | `50x` | All |
+| EUR/USD | `500x` | All |
+| GBP/USD | `500x` | All |
+| JPY/USD | `500x` | All |
+| AUD/USD | `500x` | All |
+| CAD/USD | `500x` | All |
+| CHF/USD | `500x` | All |
+| XAG/USD | `50x` | All |
+| XAU/USD | `50x` | All |
+| QQQ/USD | `50x` | All |
+| SPY/USD | `50x` | All |
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## GMXv1 Pairs
 
-## Authentication
+| Pair   | Leverage          |                 |
+| ----------- | ------------------------ | ---------------------- |
+| BTC/USD | `50x` | Arbitrum / Avalanche |
+| ETH/USD | `50x` | Arbitrum / Avalanche |
+| LINK/USD | `50x` | Arbitrum / Avalanche |
+| UNI/USD | `50x` | Arbitrum / Avalanche |
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## GMXv2 Pairs
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+| Pair   | Leverage          |                 |
+| ----------- | ------------------------ | ---------------------- |
+| BTC/USD | `50x` | Arbitrum / Avalanche |
+| ETH/USD | `50x` | Arbitrum / Avalanche |
+| LINK/USD | `50x` | Arbitrum / Avalanche |
+| ARB/USD | `50x` | Arbitrum / Avalanche |
+| SOL/USD | `50x` | Arbitrum / Avalanche |
+| UNI/USD | `50x` | Arbitrum / Avalanche |
+| XRP/USD | `50x` | Arbitrum / Avalanche |
+| LTC/USD | `50x` | Arbitrum / Avalanche |
+| DOGE/USD | `50x` | Arbitrum / Avalanche |
+
+## MUX Pairs
+
+| Pair   | Leverage          |                 |
+| ----------- | ------------------------ | ---------------------- |
+| BTC/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |
+| ETH/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |
+| AVAX/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |
+| ARB/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |
+| OP/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |
+| BNB/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |
+| FTM/USD | `100x` | Arbitrum / Avalanche / BSC / Optimism / Fantom |

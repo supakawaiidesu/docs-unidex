@@ -1,33 +1,22 @@
 ---
 title: 'Design overview'
-description: 'Example section for showcasing API endpoints'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
 
-## Welcome
+## 1st Perp Aggregator
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+One of the key unique features of our protocol is our focus on aggregation. Since 2021, we've been aggregating external perp protocols like XVIX, Gambit, Perpetual protocol, and GMX.
+Since then, we've expanded our aggregation to include more protocols like MUX, GMX Forks, and GMXv2.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## How It works
+One of the main key features is how we let the user tap into these external protocols. User has a few onboarding choices to decide the orderflow of his trade based on his risk appetite.
 
-## Authentication
+| Method   | Access          |   Chains     |         Restrictions                     |
+| ----------- | ------------------------ | ---------------------- | ---------------------- |
+| Gnosis Safe Smart Wallet | `Full` | All chains with Safe Deployment | Requires funding an external wallet once
+| Multicall Contract | `Limited` | All chains | Some Perp DEXs dont allow orders made by smart contracts
+| User Wallet (MetaMask) | `Low` | All chains | While all DEXs are supported, the user has to confirm each order manually which is not ideal for latency sensitive trades
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+By partnering with Gelato and Safe protocol, the largest and safest multisig solution, our smart wallet is able to execute orders on behalf of the user without the user having to confirm each order manually. Users pending traders are also batched together allowing up to 10 individual transactions to be bundled into 1 single TX.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+We wouldnt force anyone to use the safe wallet however, users can still use their own wallets to trade on our platform. However, they would have to confirm each order manually but they wont have to trust external smart wallets with their funds. Certain actions like collateral swaps wouldnt be supported for trades executed outside the safe wallet due to latency issues.

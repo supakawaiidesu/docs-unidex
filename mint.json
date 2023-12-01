@@ -68,7 +68,7 @@
       "pages": [
         {
             "group": "Native Perps",
-            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Hooks", "Leverage-Trading/Fees", "Leverage-Trading/Pair Specs"]
+            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Fees", "Leverage-Trading/Pair Specs"]
         },
         {
           "group": "Aggregated Perps",
