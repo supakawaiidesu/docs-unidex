@@ -1,33 +1,60 @@
 ---
 title: 'Forge SDK'
-description: 'Example section for showcasing API endpoints'
+description: 'temp section'
+icon: 'code'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## What are whitelabels for?
 
-## Welcome
+We want to decentralize how we host frontends for the protocol & incentivize protocols that do so. We have a couple of solutions for protocols and builders looking to launch their own white-labeled frontend while enabling extra utility for their own governance token.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## What are the benefits?
 
-## Authentication
+We have a couple of solutions for protocols and builders looking to launch their own white-labeled frontend while enabling extra utility for their own governance token.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+### Governance Token Pool
+You could launch a PRMM pool with your own governance token (any any associated protocol token) as collateral. This allows your holders to earn real yield on their tokens while also earning fees from the pool.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+- Own white labeled front-end with your branding on your hosted domains
+- Your holders can use your governance token (or any ERC20) as collateral for trades
+- Your holders earns real yield additional revenue in a staking counterparty pool
+- Your protocol earns 75% of collected fees
+- We do all the heavy lifting for you
+
+### Aggregation enabled white-label
+You could launch a white-labeled front-end that aggregates liquidity from multiple protocols. Your frontend passes a referral code to UniDex and you earn a % of fees from all trades that come from your frontend.
+This can be combined with the governance token pool to earn fees from both the pool and the aggregation.
+
+- Own white labeled front-end with your branding on your hosted domains
+- Your traders can access the deepest liquidity offered by any leverage protocol
+- Your protocol earns up to 25% of collected fees
+- Multiple collateral options for your traders including your own governance token if wanted
+- Any new aggregated protocols are automatically added to your front-end
+- Any updates from our core protocol are automatically added to your front-end
+- We do all the heavy lifting for you
+
+## How do I get started?
+This comes at 0 cost, we do all the work to get it up and maintained, and you earn fees from all trades that come from your frontend/pool. 
+
+To get started, You send us your desired chain, logos, split between the staking pool & your protocol, and your tokens contract address. From there we spin up some articles, your branded frontend, and a pool allowing holders to use your token as collateral for trades.
+
+## FAQ
+
+```md
+Q: Does the governance token face any liquidation risk?
+A: Nope! All tokens are considered 1 ERC20 = 1 ERC20
+
+Q: My token is very volatile, will this be a concern?
+A: USD values are not factored in at all. These are coin-margined perps so the protocol treats things 1:1. 
+If someone uses 100 ERC20 margin for their trade and closes a 30% profit trade, 
+they will earn 30 ERC20 from the pool no matter the USD price change of the token.
+
+Q:  Are the staking pools risk free?
+A: They are NOT risk free. Poolers of the token are the counter party to traders PnL. 
+They earn fees and negative trader PnL but they also lose value from positive trader PnL.
+
+Q: What fee split between poolers & protocol collected revenue is safe?
+A: The more you can send to poolers, the better for attracting liquidity.
+Note that default UniDex pools are 30% to poolers and 70% to the protocol.
 ```

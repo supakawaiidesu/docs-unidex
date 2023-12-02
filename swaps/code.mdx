@@ -1,37 +1,33 @@
 ---
-title: 'Code Blocks'
-description: 'Display inline code and code blocks'
+title: 'Gasless Batch Auctions'
+description: 'Introduction to Gasless order types on UniDex'
 icon: 'code'
 ---
 
-## Basic
+## Basics
 
-### Inline Code
+Orders are placed off-chain and are executed in batches. This largely resembles the order flow CowSwap popularized, however is a process similar to UniDex V1 in 2020. Traders can submit trade quotes, and our "keepers" (also referred to as solvers or resolvers in other protocols) are responsible for finding the most efficient path for the trade. At the end of each auction period, the order is filled at the best rate determined by relayers, and the trade is executed.
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+Using Gasless swaps gives the trader a number of benefits such as...
+- Aggregated Limit Orders
+- Same quote scanning from 8 different aggregators
+- Potential additional surplus passed to the trader 
+- MEV protected
+- Gasless transactions not needing native token (perfect for selling airdrops on new chains!)
+- 5 EVM networks
+- Potential for 0 price impact fills
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+### Auction Types
 
-### Code Block
+`Coincidence of Wants`\
+Orders are fulfilled through a process known as "Coincidence of Wants" (CoW). When Bob and Alice both desire to exchange ETH and USDC at the same rate, it is more efficient to facilitate the exchange directly rather than using an AMM. When matching orders cant be found, they are filled against 15 different aggregators, just like instant swaps.
+Keepers (solvers) can be extremely flexible as well. 
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+`Meta-Aggregation`\
+By default, orders will be able to fill from numerous different aggregators, This is the common way orders are filled on UniDex and follows the same execution as instant swaps. The benefit of this is that orders are filled by keepers offloading any UX burden from the user such as approving multiple aggregators or paying gas on failed transactions.
+custom sources like lending liquidations, or even cross-chain fills.
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+`Cross-Chain Coincidence of Wants`\
+Similar to same chain Coincidence of Wants, Cross-Chain CoW orders allow keepers to fill orders between a shared orderbook between chains.
+This breakthrough allows for orders to be filled between chains while solvers handle all the bridge logic and swap process.\
+A user can create a 100 ETH -> USDC trade on Arbitrum, and a keeper can fill the order with a matching 100 ETH -> USDC trade on Optimism, and another trade on Polygon to complete the CoW triangle. This is a huge breakthrough for cross-chain liquidity and will be a major focus for UniDex in the future.

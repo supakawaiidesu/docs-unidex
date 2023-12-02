@@ -7,12 +7,12 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#08090d",
+    "light": "#06bee1",
+    "dark": "#101119",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#08090d",
+      "to": "#06bee1"
     }
   },
   "topbarLinks": [
@@ -64,6 +64,10 @@
   ],
   "navigation": [
     {
+      "group": "introduction",
+      "pages": ["introduction"]
+    },
+    {
       "group": "Leverage Trading",
       "pages": [
         {
@@ -85,20 +89,16 @@
       "pages": ["swaps/markdown", "swaps/code", "swaps/images", "swaps/settings", "swaps/navigation"]
     },
     {
-      "group": "Obsidian RPC",
-      "pages": ["rpc/markdown", "rpc/code", "rpc/images", "rpc/settings", "rpc/navigation"]
-    },
-    {
       "group": "Molten OP Stack Chain",
-      "pages": ["appchain/markdown", "appchain/code", "appchain/images", "appchain/settings", "appchain/navigation"]
+      "pages": ["appchain/markdown", "appchain/navigation"]
     },
     {
       "group": "Token Information",
-      "pages": ["token/markdown", "token/code", "token/images", "token/settings", "token/navigation"]
+      "pages": ["token/markdown"]
     },
     {
       "group": "Misc",
-      "pages": ["miscpage/markdown", "miscpage/code", "miscpage/images", "miscpage/settings", "miscpage/navigation"]
+      "pages": ["miscpage/code"]
     },
     {
       "group": "API Documentation",
