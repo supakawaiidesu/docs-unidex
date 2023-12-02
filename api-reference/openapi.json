@@ -10,32 +10,18 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://pool.unidexapi.com"
     }
   ],
   "security": [
-    {
-      "bearerAuth": []
-    }
   ],
   "paths": {
-    "/plants": {
+    "/pools": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
+        "description": "Returns all pools on the default PRMM pool list",
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": " PRMM pool list",
             "content": {
               "application/json": {
                 "schema": {
