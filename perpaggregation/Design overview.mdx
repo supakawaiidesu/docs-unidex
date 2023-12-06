@@ -5,11 +5,11 @@ title: 'Design overview'
 
 ## 1st Perp Aggregator
 
-One of the key unique features of our protocol is our focus on aggregation. Since 2021, we've been aggregating external perp protocols like XVIX, Gambit, Perpetual protocol, and GMX.
-Since then, we've expanded our aggregation to include more protocols like MUX, GMX Forks, and GMXv2.
+One of the key unique features of our protocol is aggregation. Since 2021, we've been aggregating external perp protocols like XVIX, Gambit, Perpetual protocol, and GMX.
+Since then we've expanded our aggregation to include more protocols like MUX, GMX Forks, and GMXv2.
 
 ## How It works
-One of the main key features is how we let the user tap into these external protocols. User has a few onboarding choices to decide the orderflow of his trade based on his risk appetite.
+One of the key features is how we let the user tap into these external protocols. Our user has multiple onboarding choices to decide the orderflow of his trade based on his risk appetite.
 
 | Method   | Access          |   Chains     |         Restrictions                     |
 | ----------- | ------------------------ | ---------------------- | ---------------------- |
@@ -17,6 +17,6 @@ One of the main key features is how we let the user tap into these external prot
 | Multicall Contract | `Limited` | All chains | Some Perp DEXs dont allow orders made by smart contracts
 | User Wallet (MetaMask) | `Low` | All chains | While all DEXs are supported, the user has to confirm each order manually which is not ideal for latency sensitive trades
 
-By partnering with Gelato and Safe protocol, the largest and safest multisig solution, our smart wallet is able to execute orders on behalf of the user without the user having to confirm each order manually. Users pending traders are also batched together allowing up to 10 individual transactions to be bundled into 1 single TX.
+By partnering with Gelato and Safe protocol, the largest and safest multisig solution, our smart wallet is able to execute orders on behalf of the user without the user having to confirm each order manually. Users pending trades are also batched together allowing up to 10 individual transactions to be bundled into a single one.
 
-We wouldnt force anyone to use the safe wallet however, users can still use their own wallets to trade on our platform. However, they would have to confirm each order manually but they wont have to trust external smart wallets with their funds. Certain actions like collateral swaps wouldnt be supported for trades executed outside the safe wallet due to latency issues.
+We wouldnt force anyone to use the safe wallet. Users can still use their own wallets to trade on our platform by doing so they would have to confirm each order manually, but they wont have to trust external smart wallets with their funds. Certain actions like collateral swaps wouldnt be supported for trades executed outside the safe wallet due to latency issues.
