@@ -94,7 +94,7 @@
     },
     {
       "group": "Token Information",
-      "pages": ["token/markdown"]
+      "pages": ["token/navigation"]
     },
     {
       "group": "Misc",
