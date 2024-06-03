@@ -80,7 +80,7 @@
         },
         {
           "group": "Forge SDK / Whitelabel",
-          "pages": ["forge/Sdk", "forge/Whitelabel"]
+          "pages": ["forge/Whitelabel"]
         }
               ]
     },
