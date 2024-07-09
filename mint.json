@@ -21,8 +21,8 @@
       "url": "https://discord.gg/unidex"
     },
     {
-      "name": "Telegram",
-      "url": "https://t.me/unidexfinance"
+      "name": "Molten Docs",
+      "url": "https://docs.moltennetwork.com/introduction"
     }
   ],
   "topbarCtaButton": {
@@ -87,10 +87,6 @@
     {
       "group": "Swap Aggregation",
       "pages": ["swaps/markdown", "swaps/code", "swaps/images", "swaps/settings", "swaps/navigation"]
-    },
-    {
-      "group": "Molten OP Stack Chain",
-      "pages": ["appchain/markdown", "appchain/navigation"]
     },
     {
       "group": "Token Information",
