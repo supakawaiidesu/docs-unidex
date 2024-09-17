@@ -2,19 +2,73 @@
 title: 'Trading Fees'
 ---
 
-## Surge Fees
+UniDex implements a sophisticated fee structure designed to maintain market equilibrium, manage risk, and ensure long-term protocol sustainability. This document outlines the various components of our fee system.
 
+## Position Fees
 
-Trade fees are dynamic. We call this mechanism "Surge Fees" and helps balance OI on the platform. The execution is simple to understand and the math is also easy to grasp. If the open interest is imbalanced 2.0 ( twice as many longs than shorts ), the base fee is increased by 2x on the long side and the short side is decreased by the same percentage. 
+Position fees are applied when opening, increasing, or decreasing a position. The fee is calculated based on the position size and an asset-specific trading rate:
 
-So if the base fee for ETH/USD was 0.1% and the openInterestLong was 100 USDC and the openInterestShort was 50 USDC. This will price the fee for longs at 0.2% while the fee to enter short would be 0.05%. This will encourage traders to fill up the minority position side while traders taking the market bias position side pays a higher fee.
+$$
+Fee = Size \times Rate_{asset}
+$$
 
-## Borrow Fees
+Fee percentage is determined by the asset's historical volatility and market depth. Because of this, fees can vary between assets and are subject to periodic review. These values are dynamic to encourage more balanced markets and reduce costs for traders taking minority positions.
 
+## Dynamic Funding Fees
 
-Interest payments occur at a fixed rate by the second. Some trading pairs which are designed to be short term trades or highly volatile trades could have higher than average interest payments. 
-The value is subtracted from the final PnL on close rather than actual position margin taken from the trade itself.
+UniDex utilizes an innovative velocity-based funding fee mechanism. This system balances open interest while providing stability for market makers and reducing costs for traders.
 
-<Note>
-In some other protocols including CEXs, this is usually called "Funding Rate" and is paid by the trader who is in the minority position. In our case, both sides of the position will always pay interest on their position size to the pool.
-</Note>
+Key variables in the funding fee calculation:
+
+- $targetRate$: Equilibrium funding rate
+- $skewRatio$: Normalized difference between long and short open interest
+- $velocityFactor$: Rate of change towards the target rate
+- $riskFactor$: Based on 14-day average volatility
+
+## Dynamic Funding Rate Mechanism
+
+UniDex employs a sophisticated funding rate system to maintain balance in the market. This mechanism adjusts the funding rate based on the difference between long and short open interest:
+
+1. **Long-Dominated Market:**
+   When long positions exceed short positions, the funding rate that longs pay to shorts gradually increases. This continues until:
+   - The imbalance between longs and shorts falls below a set threshold, or
+   - The funding rate reaches its upper limit
+
+2. **Balancing Act:**
+   If more short positions open or long positions close, reducing the long-short imbalance, the funding rate begins to decrease. This adjustment continues until the open interest difference falls below the threshold.
+
+3. **Short-Dominated Market:**
+   If short positions surpass long positions, the funding rate reverses direction:
+   - Shorts start paying longs
+   - The rate gradually increases as the imbalance grows
+   - This continues until the open interest difference falls below the threshold or the rate hits its upper limit
+
+This dynamic system incentivizes traders to balance the market naturally, promoting stability and liquidity in the UniDex ecosystem.
+
+## Borrowing Fees
+
+Borrowing fees mitigate the vault's risk in taking the opposite side of each trade:
+
+$$
+borrowFee = positionSize \times borrowRate \times duration
+$$
+
+The $borrowRate$ is asset-specific, based on historical volatility, and periodically reviewed.
+
+## Spread Mechanism
+
+To simulate order book dynamics, UniDex implements a spread mechanism:
+
+$$
+deltaPercent = Penalty \times \sqrt{\frac{2 \times totalOI + positionSize}{2 \times vaultTVL}}
+$$
+
+$$
+executionPrice = markPrice \times (1 \pm deltaPercent)
+$$
+
+Where the $+$ sign is used for LONG positions and the $-$ sign for SHORT positions.
+
+The $pairPenalty$ is asset-specific, correlating with historical volatility and market depth.
+
+For assets like BTC/USD and ETH/USD, $pairPenalty$ is 0 due to high liquidity. For less liquid assets, the penalty is higher to encourage more balanced markets and increase the cost of exploitive trading strategies.

@@ -1,37 +1,54 @@
 ---
-title: 'Intent Based Orders'
-description: 'This page covers all things conditional orders, such as limit orders, stop losses, automated trade coverage, and more'
+title: 'UniDexV4 Margin System'
+description: 'Overview of the UniDexV4 margin system, deposit and withdrawal processes'
 ---
 
 ## Introduction
 
-When designing a limit order system, we wanted to change how people imagine limit orders on-chain and make a system that feels closer to what DeFi can offer. Enter intent based smart conditional orders that execute according to custom logic rather than binary conditions.
+The UniDexV4 margin system is an innovative, smart contract-based solution designed to support multiple stablecoins and facilitate cross-chain deposits. This document outlines the key features and processes of the margin system.
 
-The way these work is similar to any other limit order solution, except it can be more thought out as a set of instructions you would pass to an Ai chat bot. An example of the modern limit order solution would be having a take profit order & stoploss order which executes once the binary condition is met.
+## How It Works
 
-UniDex limit orders on the other hand, execute based on a set of instructions that keepers can understand and translate.
+It's important to note that the UniDexV4 margin system doesn't create a separate wallet for users. Instead, it utilizes an internal smart contract to track and manage user balances. When you deposit funds into the UniDex vault, the protocol credits your account with the corresponding USD balance, which you can then use for trading.
 
-Want your BTC Long trade to have a stop loss if the SPY dips below a certain value? ETH Short opened if SOL crosses a specific value? 
+## Supported Assets
 
-Maybe a BTC short opened if TWAP price hits a particular value, or even TWAP out of your existing trade in set intervals?
+UniDexV4 supports a variety of stablecoins, offering users flexibility in their choice of collateral. Currently supported assets include:
 
-Keepers also have a record of every pending limit order and unexecuted market orders. This lets the keeper ALWAYS have perfect execution and the ability to execute missed trades. "Look backs" are possible where the keeper "looks back" at previously un-executed market orders and oracle prices to execute any missed trades in 1 minute intervals.
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+- USDT
+- USDC
+- DAI
+- sUSDe
 
-## Authentication
+This multi-asset support allows users to interact with the platform using their preferred stablecoin, enhancing accessibility and reducing the need for additional token swaps.
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## Deposit & Withdraw
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+### The Vault
+
+The UniDexV4 vault contract is designed to accommodate multiple stablecoin assets. By depositing funds into the vault, users receive a credited USD balance on the platform, which can be used for trading and later redeemed for any of the supported underlying deposits.
+
+UniDexV4 leverages meta-aggregators like Li.fi to enable cross-chain deposits. This feature allows users to deposit assets from various blockchain networks, streamlining the onboarding process and keeping things on just 1 network.
+
+### Withdrawals
+
+Withdrawals from the UniDexV4 system are straightforward:
+1. Select the stablecoin you wish to withdraw
+2. Enter the withdrawal amount
+3. Confirm the transaction
+
+<Note>
+  User balances are tracked within the smart contract. In the event of any front-end issues, manual withdrawals are always possible through direct interaction with the smart contract.
+</Note>
+
+## Security and Transparency
+
+The UniDexV4 margin system prioritizes security and transparency:
+
+- **Smart Contract-Based**: All balances and transactions are managed by secure, audited smart contracts.
+- **No Custodial Wallets**: The system doesn't create or manage separate wallets, reducing potential points of failure.
+
+## Conclusion
+
+The UniDexV4 margin system offers a flexible, secure, and user-centric approach to managing collateral on the platform. By supporting multiple stablecoins and enabling cross-chain deposits, all managed through an internal smart contract, UniDexV4 aims to provide a seamless and efficient trading experience for users across different blockchain ecosystems.
+

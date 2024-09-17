@@ -1,11 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
+    "title": "UniDex Pool API",
+    "description": "API for accessing UniDex pool information across different chains",
     "version": "1.0.0"
   },
   "servers": [
@@ -13,21 +10,33 @@
       "url": "https://pool.unidexapi.com"
     }
   ],
-  "security": [
-  ],
   "paths": {
     "/pools": {
       "get": {
-        "description": "Returns all pools on the default PRMM pool list",
+        "description": "Returns all pools across supported chains",
         "responses": {
           "200": {
-            "description": " PRMM pool list",
+            "description": "Successful response with pool data",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "type": "object",
+                  "properties": {
+                    "optimism": {
+                      "type": "object"
+                    },
+                    "arbitrum": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "$ref": "#/components/schemas/Pool"
+                      }
+                    },
+                    "zksync": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "$ref": "#/components/schemas/Pool"
+                      }
+                    }
                   }
                 }
               }
@@ -44,121 +53,110 @@
             }
           }
         }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
       }
     }
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "Pool": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
+          "logo": {
+            "type": "string",
+            "description": "URL of the pool's currency logo"
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "currency": {
+            "type": "string",
+            "description": "Address of the pool's currency contract"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the pool"
+          },
+          "feePercentage": {
+            "type": "integer",
+            "description": "Fee percentage for the pool"
+          },
+          "decimals": {
+            "type": "integer",
+            "description": "Number of decimals for the pool's currency"
+          },
+          "dailyTokenIncentives": {
+            "type": "number",
+            "description": "Daily token incentives for the pool"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the pool"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "Protocol of the pool"
+          },
+          "Utilization": {
+            "type": "string",
+            "description": "Utilization rate of the pool"
+          },
+          "MinimumDepositTime": {
+            "type": "string",
+            "description": "Minimum deposit time in seconds"
+          },
+          "OpenInterest": {
+            "type": "string",
+            "description": "Open interest of the pool"
+          },
+          "TVL": {
+            "type": "string",
+            "description": "Total Value Locked in the pool"
+          },
+          "WithdrawFee": {
+            "type": "string",
+            "description": "Withdraw fee percentage"
+          },
+          "Currency": {
+            "type": "string",
+            "description": "Address of the pool's currency contract (duplicate of 'currency')"
+          },
+          "1DayData": {
+            "$ref": "#/components/schemas/PoolData"
+          },
+          "7DayData": {
+            "$ref": "#/components/schemas/PoolData"
+          },
+          "30DayData": {
+            "$ref": "#/components/schemas/PoolData"
+          },
+          "365DayData": {
+            "$ref": "#/components/schemas/PoolData"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+      "PoolData": {
+        "type": "object",
+        "properties": {
+          "APR": {
+            "type": "string",
+            "description": "Annual Percentage Rate"
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+          "RewardAPR": {
+            "type": "string",
+            "description": "Reward Annual Percentage Rate"
+          },
+          "TotalReturn": {
+            "type": "number",
+            "description": "Total return for the period"
+          },
+          "PnL": {
+            "type": "number",
+            "description": "Profit and Loss for the period"
+          },
+          "Fees": {
+            "type": "number",
+            "description": "Fees collected for the period"
           }
-        ]
+        }
       },
       "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
         "type": "object",
         "properties": {
           "error": {
@@ -168,13 +166,8 @@
           "message": {
             "type": "string"
           }
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+        },
+        "required": ["error", "message"]
       }
     }
   }

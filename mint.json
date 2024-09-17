@@ -72,11 +72,11 @@
       "pages": [
         {
             "group": "Native Perps",
-            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Fees", "Leverage-Trading/Pair Specs"]
+            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Fees"]
         },
         {
           "group": "Aggregated Perps",
-          "pages": ["perpaggregation/Design overview", "perpaggregation/Fees", "perpaggregation/AccountAbstraction", "perpaggregation/AggregatedPlatforms"]
+          "pages": ["perpaggregation/Design overview", "perpaggregation/Fees", "perpaggregation/AggregatedPlatforms"]
         },
         {
           "group": "Forge SDK / Whitelabel",
@@ -93,19 +93,13 @@
       "pages": ["token/navigation"]
     },
     {
-      "group": "Misc",
-      "pages": ["miscpage/code"]
-    },
-    {
       "group": "API Documentation",
       "pages": ["api-reference/introduction"]
     },
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/pools"
       ]
     }
   ],

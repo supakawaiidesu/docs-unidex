@@ -13,10 +13,10 @@ One of the key features is how we let the user tap into these external protocols
 
 | Method   | Access          |   Chains     |         Restrictions                     |
 | ----------- | ------------------------ | ---------------------- | ---------------------- |
-| Gnosis Safe Smart Wallet | `Full` | All chains with Safe Deployment | Requires funding an external wallet once
+| Biconomy Smart Wallet | `Full` | All chains | Requires funding an external wallet once
 | Multicall Contract | `Limited` | All chains | Some Perp DEXs dont allow orders made by smart contracts
 | User Wallet (MetaMask) | `Low` | All chains | While all DEXs are supported, the user has to confirm each order manually which is not ideal for latency sensitive trades
 
-By partnering with Gelato and Safe protocol, the largest and safest multisig solution, our smart wallet is able to execute orders on behalf of the user without the user having to confirm each order manually. Users pending trades are also batched together allowing up to 10 individual transactions to be bundled into a single one.
+By partnering with Biconomy protocol, our smart wallet is able to execute orders on behalf of the user without the user having to confirm each order manually. Users pending trades are also batched together allowing up to 10 individual transactions to be bundled into a single one.
 
-We wouldnt force anyone to use the safe wallet. Users can still use their own wallets to trade on our platform by doing so they would have to confirm each order manually, but they wont have to trust external smart wallets with their funds. Certain actions like collateral swaps wouldnt be supported for trades executed outside the safe wallet due to latency issues.
+We wouldnt force anyone to use the smart wallet. Users can still use their own wallets to trade on our platform by doing so they would have to confirm each order manually, but they wont have to trust external smart wallets with their funds. Certain actions like collateral swaps wouldnt be supported for trades executed outside the safe wallet due to latency issues.
