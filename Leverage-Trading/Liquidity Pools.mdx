@@ -1,56 +1,79 @@
 ---
-title: 'Liquidity Pools'
-description: ''
+title: 'USD.m / Liquidity Pool'
+description: 'Overview of the USD.m liquidity provider token for UniDex'
 ---
 
+## USD.m Contract Address
 
-## Concept
+Arbitrum: `TBA`
 
-Any market participant can pool money and provide liquidity for traders on the platform. This action can be compared to market makers in traditional finance in which their liquidity is used by traders on the platform to buy and sell positions of active trading pairs. 
-In simple words, any loses and gains are debited from the liquidity pool.
+## USD.m Vault: Rehypothecated Market Making
 
-Similar models include
-- GMX's GLP
-- GainTrade's gDAI
-- MUX's MUXLP
-- CAP's CLP
-- an AMM bot connected to an orderbook
+The USD.m vault represents a groundbreaking approach to liquidity provision on perp protocols, enabling participants to act as market makers on UniDex while simultaneously tapping into yields from multiple DeFi protocols. This innovative strategy, which we term "multi-protocol rehypothecated yield optimization," offers USD.m holders diverse streams of income.
 
-<Note>
-  Pooling is not risk free. By pooling you are becoming a market maker taking on **both** positive and negative PnL from traders. Which if the total PnL exceeds the liquidity pool, the pool will be at a total loss. Similar to any other pool based model, or market maker in traditional finance.
-</Note>
-## Liquidity providers
+### USD.m Vault Mechanics
 
+- Participants contribute assets to the USD.m vault, receiving USD.m tokens as representation of their share.
+- UniDex strategically allocates these assets across a range of protocols, including GMX, GNS, Ethena, and Aave, managing the positions on behalf of users.
+- The allocated liquidity serves a dual purpose:
+   1. It's utilized for market making on the respective platforms, generating returns through trading fees and price movements.
+   2. UniDex leverages this liquidity to facilitate trading on its own platform, creating an additional layer of yield opportunities.
+- The platform aggregates yields from all sources - trading fees, interest from lending protocols, and rewards from liquidity provision - and channels them back to USD.m holders.
 
-### Sample orderflow
-In order to understand the risks and benefits of becoming a liquidity provider, we must first dive into a simulated trade flow.
+### Advantages of providing liquidity to the USD.m vault over other platforms
+
+Engaging with the USD.m vault offers several compelling benefits:
+
+* Full retention of rewards from integrated protocols (GMX, GNS, Ethena, and Aave)
+* A 20% share of UniDex's total protocol earnings
+* Exposure to potential gains from market making activities across multiple platforms
+
+This multi-faceted approach to yield generation positions USD.m as a cutting-edge tool for maximizing DeFi returns.
+
+## Minting and Redeeming USD.m
+
+### Minting
+To mint USD.m, users need to use any supported stablecoin (such as USDC, DAI, USDT, or sUSDe) and deposit it into the USD.m vault. The USD.m minted is based on the current USD.m price.
+
+### Redeeming
+Redeeming USD.m is straightforward. Users enter the amount of USD.m and select a supported stablecoin to redeem for the equivalent value. The USD.m is then burned, and the stablecoin is sent to the user's wallet.
+
+### Fees and Cooldown
+- Minting fee: 0.1%
+- Redeeming fee: 0.1%
+- Cooldown period: 1 day (24h) before minted USD.m can be redeemed
+
+### Additional Features
+Users can mint USD.m cross chain using various meta-aggregators like Axelar, Li.fi, and more. 
+
+## Why Choose USD.m?
+
+USD.m provides liquidity for traders, allowing them to take positions with leverage. The relationship between USD.m holders and traders is as follows:
+- If traders take a loss, USD.m holders will make a profit
+- If traders take a profit, USD.m holders will make a loss
+
+Rewards for providing liquidity and counterparty risk are based on the Arbitrum chain where the USD.m was minted.
+
+## Risks Associated with USD.m
+
+Although USD.m value is market neutral and not directly affected by crypto market volatility, holding USD.m still carries risks:
+
+1. Counterparty risk: If traders make a profit, that profit is paid to the trader out of the USD.m pool.
+2. Depegging risk: In the unlikely scenario that any of the supported stablecoins depeg, USD.m could be affected. For example, if USDT depegs, the USD.m price would be affected because USDT backs the vault making its depeg percentage negatively affect the USD.m price.
+
+## USD.m Liquidity Pool Mechanics
+
+The open interest available for the platform is limited by the total stablecoin value available in USD.m. Traders cannot open a new position if the total platform open interest meets or exceeds the total TVL in USD.m.
+
+A portion of all protocol-generated fees, including opening/closing positions, minting USD.m, borrow fees, and excess funding fees, as well as any losses from traders' realized P&L and liquidations, go towards the USD.m vault, causing its price to increase over time. Any profits from traders' realized P&L are paid out from the USD.m vault, causing its price to decrease.
+
+The USD.m price is based on the number of USD and USD.m in the vault, at any time, where:
+
 ```
-The liquidity pool has 100 USDC
-
-Alice has 10 USDC
-Alice opens a 1x leverage trade with 5 USDC
-Alice is at a loss of -50% on her open trade and closes this trade to prevent further loss
-
-Alice's total loss is 2.5 USDC which is sent to the pool for a total of 102.5 USDC & Alice is sent back 2.5 USDC to her account.
-the TVL of the pool has now increased to 102.5 for a 2.5% gain for poolers socialized across all poolers.
-
-Similarly, if Bob opens the same position shortly after and gains 2.5 USDC on his trade and closes his position in profit 
-The pool loses 2.5 USDC putting it back to 100 USDC and Bob gains 7.5 USDC (5 Margin USDC + 2.5 USDC PnL)
-The pool balance is now 97.5 USDC for a 2.5% loss for poolers socialized across all poolers.
+USD.m price = USD in vault / USD.m supply
 ```
-All trading pairs with the selected collateral route through that speific pool. So all trades using USDC.e will trade against the USDC.e liquidity pool. All settled PnL is taken / given to the LP which is how liquidity providers are rewarded for their market-making.
 
-LP positions can be thought of as hedging against the collective profit traders make on the platform. Thus it's important to note that LPing is not risk free and comes with risks. 
+## Fee Distribution
 
-If there is a prolonged period of traders net PnL being positive month to month, then liquidity providers will have negative APR rates. However, as traders on the platform lose trades, then LP positions will profit from traders losses.
+20% of all platform fees are automatically distributed to USD.m holders. There is no need to stake USD.m to receive these fees; simply holding USD.m automatically accures additional value over time. This is similar to LSD tokens like stETH or sUSDe where the value of the token increases over time because the fees are added to the vault directly increasing the value of the token.
 
-Trading fees are also sent to poolers depending on the PrMM pools config which is displayed on the UI. 
-This helps LPs stay afloat during prolonged onesided and short term extremely volatile markets out of general gains earned through negative trader PnL.
-
-
-
-### Why is this model used?
-
-By providing LP you are going against the traders long term net PnL. As traders lose money then you accrue rewards however, if traders make money then the pool decreases in value which also decreases your claimable amount.
-
-The pool has a variable withdrawal fee and lock period to prevent gaming the system. 
