@@ -1,0 +1,112 @@
+---
+title: 'Order Types'
+description: 'How to use limit orders, stop orders, and more'
+---
+
+## Introduction
+
+UniDexV4 supports three main types of orders for opening positions: Limit Orders, Stop Market Orders, and Stop Limit Orders. For managing existing positions, traders can use Take Profit and Stop Loss orders. All orders on UniDexV4 are guaranteed to fill when conditions are met, as they are monitored by keepers every 2 seconds.
+
+## New Position Orders
+
+### Limit Orders
+
+A limit order is an order to buy or sell at a specified price or better. The order will only execute at the limit price or a more favorable price.
+
+#### How Limit Orders Work
+
+| Initial Market Condition | Long Position | Short Position |
+|-------------------------|---------------|----------------|
+| Limit Price < Mark Price | Executes when Mark Price falls to Limit Price | Executes immediately as Market Order |
+| Limit Price > Mark Price | Executes immediately as Market Order | Executes when Mark Price rises to Limit Price |
+
+<Note>
+  Limit orders help traders secure a specific entry or exit price, ensuring they never pay more than their desired price for a long position or sell for less than their desired price for a short position.
+</Note>
+
+### Stop Market Orders
+
+A stop market order is an order that converts to a market order when a specified price level (the stop price) is reached.
+
+#### How Stop Market Orders Work
+
+| Initial Market Condition | Long Position | Short Position |
+|-------------------------|---------------|----------------|
+| Stop Price < Mark Price | Executes immediately as Market Order | Executes when Mark Price falls to Stop Price |
+| Stop Price > Mark Price | Executes when Mark Price rises to Stop Price | Executes immediately as Market Order |
+
+<Note>
+  Stop market orders are commonly used as stop-loss orders to limit potential losses by executing at market price once the stop price is triggered.
+</Note>
+
+### Stop Limit Orders
+
+A stop limit order combines features of both stop and limit orders. When the stop price is reached, it activates a limit order at the specified limit price.
+
+#### Stop Price Activation
+
+| Initial Market Condition | Long Position | Short Position |
+|-------------------------|---------------|----------------|
+| Stop Price < Mark Price | Executes immediately as Market Order | Activates Limit Order when Mark Price = Stop Price |
+| Stop Price > Mark Price | Activates Limit Order when Mark Price = Stop Price | Executes immediately as Market Order |
+
+#### Limit Order Execution After Stop Trigger
+
+Once the stop price is reached and the limit order is activated, the following conditions apply:
+
+| Initial Condition | Long Position | Short Position |
+|------------------|---------------|----------------|
+| Stop Price < Limit Price | Executes immediately as Market Order | Executes when Mark Price rises to Limit Price |
+| Stop Price > Limit Price | Executes when Mark Price falls to Limit Price | Executes immediately as Market Order |
+
+## Position Management Orders
+
+When you have an open position, you can set Take Profit and Stop Loss orders to automatically manage your position.
+
+### Take Profit Orders
+
+Take Profit orders allow you to automatically close your position at a profitable price level.
+
+| Initial Market Condition | Long Position | Short Position |
+|-------------------------|---------------|----------------|
+| Take Profit < Mark Price | Not Applicable | Executes when Mark Price = Take Profit |
+| Take Profit > Mark Price | Executes when Mark Price = Take Profit | Not Applicable |
+
+### Stop Loss Orders
+
+Stop Loss orders help protect against losses by automatically closing your position if the market moves against you.
+
+| Initial Market Condition | Long Position | Short Position |
+|-------------------------|---------------|----------------|
+| Stop Loss < Mark Price | Executes when Mark Price = Stop Loss | Not Applicable |
+| Stop Loss > Mark Price | Not Applicable | Executes when Mark Price = Stop Loss |
+
+<Note>
+  Both Take Profit and Stop Loss orders are crucial risk management tools that help automate your trading strategy and protect your positions.
+</Note>
+
+## Guaranteed Execution
+
+<Info>
+  All orders on UniDexV4 are guaranteed to execute when their conditions are met. The system employs dedicated keepers that scan for fillable orders every 2 seconds, ensuring reliable and timely execution of your trades.
+</Info>
+
+## Key Terms
+
+- **Mark Price**: The current market price used as a reference for triggering orders
+- **Limit Price**: The maximum/minimum price at which you're willing to buy/sell
+- **Stop Price**: The price that triggers the activation of a stop or stop limit order
+- **Take Profit**: A price level at which your position will automatically close for a profit
+- **Stop Loss**: A price level at which your position will automatically close to limit losses
+
+## Best Practices
+
+1. **Limit Orders**: Use when you want to ensure you don't pay more than a specific price
+2. **Stop Market Orders**: Use when you want guaranteed execution after a price level is breached
+3. **Stop Limit Orders**: Use when you want to limit losses but also maintain some price control
+4. **Take Profit Orders**: Set these when opening a position to automatically secure profits
+5. **Stop Loss Orders**: Always consider setting these to protect against adverse market movements
+
+<Warning>
+  While execution is guaranteed when conditions are met, market conditions can change rapidly. Monitor your positions and adjust your orders as needed to align with your trading strategy.
+</Warning>
