@@ -43,7 +43,7 @@
     },
     {
       "name": "Molten Docs",
-      "icon": "Docs",
+      "icon": "volcano",
       "url": "https://docs.moltennetwork.com/introduction"
     },
     {
@@ -53,7 +53,7 @@
     },
     {
       "name": "Swap App",
-      "icon": "money-bill-wheat",
+      "icon": "rotate",
       "url": "https://app.unidex.exchange/"
     },
     {
