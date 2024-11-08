@@ -1,0 +1,103 @@
+---
+title: 'Get Global Info'
+openapi: 'GET /api/globalinfo'
+description: 'Retrieve global market information for a specific trading pair'
+---
+
+## Overview
+
+The Global Info endpoint provides detailed market statistics and rates for a specific trading pair, including funding rates, borrow rates, open interest, and trading fees.
+
+## Parameters
+
+<ParamField query="assetId" type="integer" required>
+  Asset ID of the trading pair (e.g., 1 for BTC/USD)
+</ParamField>
+
+<ParamField query="address" type="string">
+  Optional Ethereum address. If not provided, defaults to zero address.
+</ParamField>
+
+## Response Fields
+
+<ResponseField name="fundingRate" type="number">
+  Current funding rate. Can be positive or negative (e.g., 0.0044877381 = 0.44877381%)
+</ResponseField>
+
+<ResponseField name="borrowRateForLong" type="number">
+  Current borrow rate for long positions (e.g., 0.0050 = 0.50%)
+</ResponseField>
+
+<ResponseField name="borrowRateForShort" type="number">
+  Current borrow rate for short positions (e.g., 0.0000 = 0%)
+</ResponseField>
+
+<ResponseField name="longOpenInterest" type="number">
+  Total value of open long positions in USD
+</ResponseField>
+
+<ResponseField name="shortOpenInterest" type="number">
+  Total value of open short positions in USD
+</ResponseField>
+
+<ResponseField name="maxLongOpenInterest" type="number">
+  Maximum allowed value for long positions in USD
+</ResponseField>
+
+<ResponseField name="maxShortOpenInterest" type="number">
+  Maximum allowed value for short positions in USD
+</ResponseField>
+
+<ResponseField name="longTradingFee" type="number">
+  Trading fee for opening long positions (e.g., 0.0005 = 0.05%)
+</ResponseField>
+
+<ResponseField name="shortTradingFee" type="number">
+  Trading fee for opening short positions (e.g., 0.0005 = 0.05%)
+</ResponseField>
+
+## Example Usage
+
+<CodeGroup>
+```bash cURL
+curl "https://unidexv4-api-production.up.railway.app/api/globalinfo?assetId=1"
+```
+
+```javascript JavaScript
+const response = await fetch('https://unidexv4-api-production.up.railway.app/api/globalinfo?assetId=1');
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.get(
+    'https://unidexv4-api-production.up.railway.app/api/globalinfo',
+    params={'assetId': 1}
+)
+data = response.json()
+```
+</CodeGroup>
+
+## Example Response
+
+```json
+{
+  "fundingRate": 0.0044877381,
+  "borrowRateForLong": 0.0050,
+  "borrowRateForShort": 0.0000,
+  "longOpenInterest": 111841.688373,
+  "shortOpenInterest": 129096.000000,
+  "maxLongOpenInterest": 699096.000000,
+  "maxShortOpenInterest": 699096.000000,
+  "longTradingFee": 0.0005,
+  "shortTradingFee": 0.0005
+}
+```
+
+## Notes
+
+- All rates are expressed as decimals (multiply by 100 for percentage)
+- Funding rates can be positive or negative
+- Open interest values are in USD
+- Maximum open interest values indicate the market capacity for each side

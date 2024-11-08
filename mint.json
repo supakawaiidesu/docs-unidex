@@ -32,7 +32,8 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-reference"
+      "url": "api-reference",
+      "openapi": "/openapi.json"
     }
   ],
   "anchors": [
@@ -93,13 +94,22 @@
       "pages": ["token/navigation"]
     },
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "API Reference",
       "pages": [
-        "api-reference/endpoint/pools"
+        "api-reference/introduction",
+        {
+          "group": "Endpoints",
+          "pages": [
+            "api-reference/endpoint/globalinfo",
+            "api-reference/endpoint/markets",
+            "api-reference/endpoint/positions",
+            "api-reference/endpoint/newposition",
+            "api-reference/endpoint/closeposition",
+            "api-reference/endpoint/wallet",
+            "api-reference/endpoint/crosschain",
+            "api-reference/endpoint/referrals"
+          ]
+        }
       ]
     }
   ],

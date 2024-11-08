@@ -1,173 +1,882 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.0",
   "info": {
-    "title": "UniDex Pool API",
-    "description": "API for accessing UniDex pool information across different chains",
-    "version": "1.0.0"
+    "title": "UniDex Trading API",
+    "version": "1.0.0",
+    "description": "API documentation for the UniDex trading platform"
   },
   "servers": [
     {
-      "url": "https://pool.unidexapi.com"
+      "url": "https://unidexv4-api-production.up.railway.app",
+      "description": "Production server"
     }
   ],
-  "paths": {
-    "/pools": {
-      "get": {
-        "description": "Returns all pools across supported chains",
-        "responses": {
-          "200": {
-            "description": "Successful response with pool data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "optimism": {
-                      "type": "object"
-                    },
-                    "arbitrum": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "$ref": "#/components/schemas/Pool"
-                      }
-                    },
-                    "zksync": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "$ref": "#/components/schemas/Pool"
-                      }
-                    }
-                  }
-                }
+  "components": {
+    "schemas": {
+      "GlobalInfo": {
+        "type": "object",
+        "properties": {
+          "fundingRate": {
+            "type": "number",
+            "description": "Current funding rate (can be positive or negative)",
+            "example": 0.0044877381
+          },
+          "borrowRateForLong": {
+            "type": "number",
+            "description": "Borrow rate for long positions",
+            "example": 0.0050
+          },
+          "borrowRateForShort": {
+            "type": "number",
+            "description": "Borrow rate for short positions",
+            "example": 0.0000
+          },
+          "longOpenInterest": {
+            "type": "number",
+            "description": "Total long open interest",
+            "example": 111841.688373
+          },
+          "shortOpenInterest": {
+            "type": "number",
+            "description": "Total short open interest",
+            "example": 129096.000000
+          },
+          "maxLongOpenInterest": {
+            "type": "number",
+            "description": "Maximum allowed long open interest",
+            "example": 699096.000000
+          },
+          "maxShortOpenInterest": {
+            "type": "number",
+            "description": "Maximum allowed short open interest",
+            "example": 699096.000000
+          },
+          "longTradingFee": {
+            "type": "number",
+            "description": "Trading fee for long positions",
+            "example": 0.0005
+          },
+          "shortTradingFee": {
+            "type": "number",
+            "description": "Trading fee for short positions",
+            "example": 0.0005
+          }
+        }
+      },
+      "Position": {
+        "type": "object",
+        "properties": {
+          "posId": {
+            "type": "string",
+            "description": "Unique position identifier"
+          },
+          "size": {
+            "type": "number",
+            "description": "Position size"
+          },
+          "margin": {
+            "type": "number",
+            "description": "Margin amount"
+          },
+          "isLong": {
+            "type": "boolean",
+            "description": "Whether the position is long (true) or short (false)"
+          },
+          "entryPrice": {
+            "type": "number",
+            "description": "Entry price of the position"
+          },
+          "leverage": {
+            "type": "number",
+            "description": "Position leverage"
+          }
+        }
+      },
+      "Market": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "description": "Trading pair identifier"
+          },
+          "pair": {
+            "type": "string",
+            "description": "Trading pair name",
+            "example": "BTC/USD"
+          },
+          "price": {
+            "type": "string",
+            "description": "Current market price",
+            "example": "75964.03651450"
+          },
+          "fundingRate": {
+            "type": "number",
+            "description": "Current funding rate",
+            "example": 0.0001234
+          },
+          "borrowRateForLong": {
+            "type": "number",
+            "description": "Borrow rate for long positions",
+            "example": 0.0050
+          },
+          "borrowRateForShort": {
+            "type": "number",
+            "description": "Borrow rate for short positions",
+            "example": 0.0025
+          },
+          "longOpenInterest": {
+            "type": "number",
+            "description": "Total long positions",
+            "example": 125.50
+          },
+          "shortOpenInterest": {
+            "type": "number",
+            "description": "Total short positions",
+            "example": 100.20
+          },
+          "maxLongOpenInterest": {
+            "type": "number",
+            "description": "Maximum allowed long open interest",
+            "example": 1000.00
+          },
+          "maxShortOpenInterest": {
+            "type": "number",
+            "description": "Maximum allowed short open interest",
+            "example": 1000.00
+          },
+          "longTradingFee": {
+            "type": "number",
+            "description": "Trading fee for long positions",
+            "example": 0.0005
+          },
+          "shortTradingFee": {
+            "type": "number",
+            "description": "Trading fee for short positions",
+            "example": 0.0005
+          },
+          "utilization": {
+            "type": "number",
+            "description": "Current market utilization percentage",
+            "example": 12.55
+          },
+          "longShortRatio": {
+            "type": "object",
+            "properties": {
+              "longPercentage": {
+                "type": "number",
+                "description": "Percentage of positions that are long",
+                "example": 55.61
+              },
+              "shortPercentage": {
+                "type": "number",
+                "description": "Percentage of positions that are short",
+                "example": 44.39
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
+          "availableLiquidity": {
+            "type": "object",
+            "properties": {
+              "long": {
+                "type": "number",
+                "description": "Available liquidity for long positions",
+                "example": 874.50
+              },
+              "short": {
+                "type": "number",
+                "description": "Available liquidity for short positions",
+                "example": 899.80
+              }
+            }
+          }
+        }
+      },
+      "NewPositionRequest": {
+        "type": "object",
+        "required": ["pair", "isLong", "orderType", "margin", "size", "userAddress"],
+        "properties": {
+          "pair": {
+            "type": "integer",
+            "description": "Trading pair ID",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "isLong": {
+            "type": "boolean",
+            "description": "Position direction"
+          },
+          "orderType": {
+            "type": "string",
+            "enum": ["market", "limit", "stop-market", "stop-limit"],
+            "description": "Type of order"
+          },
+          "margin": {
+            "type": "number",
+            "description": "Margin amount in base currency"
+          },
+          "size": {
+            "type": "number",
+            "description": "Position size in base currency"
+          },
+          "maxAcceptablePrice": {
+            "type": "number",
+            "description": "Maximum price willing to accept (for market orders)"
+          },
+          "slippagePercent": {
+            "type": "number",
+            "description": "Allowed slippage in basis points (for market orders)"
+          },
+          "limitPrice": {
+            "type": "number",
+            "description": "Limit price (for limit and stop-limit orders)"
+          },
+          "stopMarketPrice": {
+            "type": "number",
+            "description": "Stop price (for stop-market and stop-limit orders)"
+          },
+          "takeProfit": {
+            "type": "number",
+            "description": "Take profit price"
+          },
+          "stopLoss": {
+            "type": "number",
+            "description": "Stop loss price"
+          },
+          "takeProfitClosePercent": {
+            "type": "number",
+            "description": "Percentage to close at take profit (in basis points)"
+          },
+          "stopLossClosePercent": {
+            "type": "number",
+            "description": "Percentage to close at stop loss (in basis points)"
+          },
+          "userAddress": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Ethereum address of the user"
+          },
+          "refer": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Optional referral address"
+          }
+        }
+      },
+      "ClosePositionRequest": {
+        "type": "object",
+        "required": ["positionId"],
+        "properties": {
+          "positionId": {
+            "type": "string",
+            "description": "ID of the position to close"
+          },
+          "sizeDelta": {
+            "type": "number",
+            "description": "Amount to decrease the position by"
+          },
+          "allowedPrice": {
+            "type": "number",
+            "description": "Maximum/minimum allowed price for closing"
+          },
+          "takeProfit": {
+            "type": "number",
+            "description": "New take profit price"
+          },
+          "stopLoss": {
+            "type": "number",
+            "description": "New stop loss price"
+          },
+          "takeProfitClosePercent": {
+            "type": "number",
+            "description": "Percentage to close at take profit"
+          },
+          "stopLossClosePercent": {
+            "type": "number",
+            "description": "Percentage to close at stop loss"
+          }
+        }
+      },
+      "WalletRequest": {
+        "type": "object",
+        "required": ["type", "tokenAddress", "amount"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["deposit", "withdraw"],
+            "description": "Operation type"
+          },
+          "tokenAddress": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Token contract address"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Amount to deposit or withdraw"
+          }
+        }
+      },
+      "CrossChainDepositRequest": {
+        "type": "object",
+        "required": ["userAddress", "fromChainId", "amount", "tokenAddress"],
+        "properties": {
+          "userAddress": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "User's Ethereum address"
+          },
+          "fromChainId": {
+            "type": "integer",
+            "description": "Source chain ID"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Amount to deposit"
+          },
+          "tokenAddress": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Token contract address on source chain"
+          }
+        }
+      },
+      "ReferralRequest": {
+        "type": "object",
+        "required": ["action", "code"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["getCodeInfo", "claimCode"],
+            "description": "Action to perform"
+          },
+          "code": {
+            "type": "string",
+            "description": "Referral code"
+          },
+          "userAddress": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Required for claimCode action"
+          }
+        }
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "required": ["calldata", "vaultAddress"],
+        "properties": {
+          "calldata": {
+            "type": "string",
+            "description": "Encoded function call data"
+          },
+          "vaultAddress": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "description": "Address of the vault contract"
+          },
+          "requiredGasFee": {
+            "type": "string",
+            "description": "Required gas fee for the transaction"
+          }
+        }
+      },
+      "ReferralCodeInfo": {
+        "type": "object",
+        "required": ["code", "bytes32Code", "owner", "isClaimed"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The referral code"
+          },
+          "bytes32Code": {
+            "type": "string",
+            "description": "32-byte representation of the code"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Address of code owner or 'Code not claimed'"
+          },
+          "isClaimed": {
+            "type": "boolean",
+            "description": "Whether the code has been claimed"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/globalinfo": {
+      "get": {
+        "summary": "Get Global Info",
+        "description": "Retrieves global market information for a trading pair",
+        "parameters": [
+          {
+            "name": "assetId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Asset ID (e.g., 1 for BTC/USD)"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Ethereum address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/GlobalInfo"
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Pool": {
-        "type": "object",
-        "properties": {
-          "logo": {
-            "type": "string",
-            "description": "URL of the pool's currency logo"
-          },
-          "currency": {
-            "type": "string",
-            "description": "Address of the pool's currency contract"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the pool"
-          },
-          "feePercentage": {
-            "type": "integer",
-            "description": "Fee percentage for the pool"
-          },
-          "decimals": {
-            "type": "integer",
-            "description": "Number of decimals for the pool's currency"
-          },
-          "dailyTokenIncentives": {
-            "type": "number",
-            "description": "Daily token incentives for the pool"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description of the pool"
-          },
-          "protocol": {
-            "type": "string",
-            "description": "Protocol of the pool"
-          },
-          "Utilization": {
-            "type": "string",
-            "description": "Utilization rate of the pool"
-          },
-          "MinimumDepositTime": {
-            "type": "string",
-            "description": "Minimum deposit time in seconds"
-          },
-          "OpenInterest": {
-            "type": "string",
-            "description": "Open interest of the pool"
-          },
-          "TVL": {
-            "type": "string",
-            "description": "Total Value Locked in the pool"
-          },
-          "WithdrawFee": {
-            "type": "string",
-            "description": "Withdraw fee percentage"
-          },
-          "Currency": {
-            "type": "string",
-            "description": "Address of the pool's currency contract (duplicate of 'currency')"
-          },
-          "1DayData": {
-            "$ref": "#/components/schemas/PoolData"
-          },
-          "7DayData": {
-            "$ref": "#/components/schemas/PoolData"
-          },
-          "30DayData": {
-            "$ref": "#/components/schemas/PoolData"
-          },
-          "365DayData": {
-            "$ref": "#/components/schemas/PoolData"
+    },
+    "/api/positions": {
+      "get": {
+        "summary": "Get User Alive Positions",
+        "description": "Retrieves all active positions for a specific user",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{40}$"
+            },
+            "description": "Ethereum address of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Array of position IDs"
+                    },
+                    "positions": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Position"
+                      },
+                      "description": "Array of position details"
+                    },
+                    "orders": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Array of order objects"
+                    },
+                    "triggers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Array of trigger objects"
+                    },
+                    "paidFees": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Array of paid fees objects"
+                    },
+                    "accruedFees": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Array of accrued fees objects"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
-      },
-      "PoolData": {
-        "type": "object",
-        "properties": {
-          "APR": {
-            "type": "string",
-            "description": "Annual Percentage Rate"
-          },
-          "RewardAPR": {
-            "type": "string",
-            "description": "Reward Annual Percentage Rate"
-          },
-          "TotalReturn": {
-            "type": "number",
-            "description": "Total return for the period"
-          },
-          "PnL": {
-            "type": "number",
-            "description": "Profit and Loss for the period"
-          },
-          "Fees": {
-            "type": "number",
-            "description": "Fees collected for the period"
+      }
+    },
+    "/api/markets": {
+      "get": {
+        "summary": "Get All Markets",
+        "description": "Retrieves comprehensive market data for all trading pairs",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{40}$"
+            },
+            "description": "Ethereum address (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the request was successful"
+                    },
+                    "timestamp": {
+                      "type": "integer",
+                      "description": "Current Unix timestamp in milliseconds"
+                    },
+                    "marketsCount": {
+                      "type": "integer",
+                      "description": "Total number of available markets"
+                    },
+                    "markets": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Market"
+                      },
+                      "description": "Array of market data"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
+      }
+    },
+    "/api/newposition": {
+      "post": {
+        "summary": "Create New Position",
+        "description": "Create a new trading position with optional take profit and stop loss orders",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPositionRequest"
+              }
+            }
           }
         },
-        "required": ["error", "message"]
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TransactionResponse"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "insufficientBalance": {
+                          "type": "boolean",
+                          "description": "Indicates if user has insufficient balance"
+                        },
+                        "error": {
+                          "type": "string",
+                          "description": "Error message if balance is insufficient"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/closeposition": {
+      "post": {
+        "summary": "Close Position",
+        "description": "Close an existing position or modify its take profit/stop loss orders",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClosePositionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/wallet": {
+      "post": {
+        "summary": "Wallet Operations",
+        "description": "Deposit or withdraw tokens directly on Arbitrum",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WalletRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/referrals": {
+      "post": {
+        "summary": "Referrals API",
+        "description": "Manage referral codes for the UniDex platform",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferralRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ReferralCodeInfo"
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/TransactionResponse"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "The referral code"
+                            },
+                            "bytes32Code": {
+                              "type": "string",
+                              "description": "32-byte representation of the code"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crosschaindeposit": {
+      "post": {
+        "summary": "Cross-Chain Deposit",
+        "description": "Deposit tokens from other chains into your margin wallet",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrossChainDepositRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "required": ["needsApproval"],
+                      "properties": {
+                        "needsApproval": {
+                          "type": "boolean",
+                          "description": "Indicates if token approval is required"
+                        },
+                        "approvalCalldata": {
+                          "type": "string",
+                          "description": "Encoded approval transaction data"
+                        },
+                        "spenderAddress": {
+                          "type": "string",
+                          "pattern": "^0x[a-fA-F0-9]{40}$",
+                          "description": "Address of the contract to approve"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "required": ["calldata", "routerAddress"],
+                      "properties": {
+                        "calldata": {
+                          "type": "string",
+                          "description": "Encoded function call data for the cross-chain deposit"
+                        },
+                        "routerAddress": {
+                          "type": "string",
+                          "pattern": "^0x[a-fA-F0-9]{40}$",
+                          "description": "Address of the Squid Router contract"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

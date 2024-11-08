@@ -1,4 +1,37 @@
 ---
-title: 'Get Pools'
-openapi: 'GET /pools'
+title: 'Global Markets'
+openapi: 'GET /api/markets'
+description: 'Retrieve comprehensive market data for all trading pairs'
 ---
+
+## Overview
+
+The Markets endpoint provides detailed information about all available trading pairs, including current prices, funding rates, and market statistics.
+
+## Use Cases
+
+- Fetch real-time market prices
+- Monitor market liquidity
+- Track funding rates
+- Analyze market utilization
+
+## Tips
+
+- Use the optional `address` parameter to get user-specific market data
+- Monitor the `utilization` field to understand market capacity
+- Watch `fundingRate` to optimize trading timing
+
+## Market Statistics
+
+The endpoint provides comprehensive statistics including:
+- Long/Short ratios
+- Open interest
+- Available liquidity
+- Trading fees
+- Borrowing rates
+
+<RequestExample>
+```bash
+curl "https://unidexv4-api-production.up.railway.app/api/markets"
+```
+</RequestExample>

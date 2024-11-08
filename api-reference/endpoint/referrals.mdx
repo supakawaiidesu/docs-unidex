@@ -1,0 +1,165 @@
+---
+title: 'Referrals API'
+openapi: 'POST /api/referrals'
+description: 'Manage referral codes for the UniDex platform'
+---
+
+## Overview
+
+The Referrals API allows users to check referral code information and claim new referral codes on the UniDex platform.
+
+## Request Body
+
+<ResponseField name="action" type="string" required>
+  Action to perform. Must be one of:
+  - `getCodeInfo`: Get information about a referral code
+  - `claimCode`: Generate calldata to claim a referral code
+</ResponseField>
+
+<ResponseField name="code" type="string" required>
+  The referral code to check or claim
+</ResponseField>
+
+<ResponseField name="userAddress" type="string">
+  Required for claimCode action. Ethereum address of the user claiming the code
+</ResponseField>
+
+## Response Fields
+
+### For getCodeInfo action
+
+<ResponseField name="code" type="string">
+  The referral code
+</ResponseField>
+
+<ResponseField name="bytes32Code" type="string">
+  32-byte representation of the referral code
+</ResponseField>
+
+<ResponseField name="owner" type="string">
+  Address of the code owner, or "Code not claimed" if unclaimed
+</ResponseField>
+
+<ResponseField name="isClaimed" type="boolean">
+  Whether the code has been claimed
+</ResponseField>
+
+### For claimCode action
+
+<ResponseField name="calldata" type="string">
+  Encoded function call data for claiming the code
+</ResponseField>
+
+<ResponseField name="contractAddress" type="string">
+  Address of the referral contract
+</ResponseField>
+
+<ResponseField name="code" type="string">
+  The referral code being claimed
+</ResponseField>
+
+<ResponseField name="bytes32Code" type="string">
+  32-byte representation of the referral code
+</ResponseField>
+
+## Example Usage
+
+### Check Code Information
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://unidexv4-api-production.up.railway.app/api/referrals" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "action": "getCodeInfo",
+    "code": "MYREFERRALCODE"
+}'
+```
+
+```javascript JavaScript
+const response = await fetch('https://unidexv4-api-production.up.railway.app/api/referrals', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    action: "getCodeInfo",
+    code: "MYREFERRALCODE"
+  })
+});
+const data = await response.json();
+```
+</CodeGroup>
+
+### Claim Code
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://unidexv4-api-production.up.railway.app/api/referrals" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "action": "claimCode",
+    "code": "MYREFERRALCODE",
+    "userAddress": "0x1234567890123456789012345678901234567890"
+}'
+```
+
+```javascript JavaScript
+const response = await fetch('https://unidexv4-api-production.up.railway.app/api/referrals', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    action: "claimCode",
+    code: "MYREFERRALCODE",
+    userAddress: "0x1234567890123456789012345678901234567890"
+  })
+});
+const data = await response.json();
+```
+</CodeGroup>
+
+## Example Responses
+
+### For getCodeInfo
+
+```json
+{
+  "code": "MYREFERRALCODE",
+  "bytes32Code": "0x4d59524546455252414c434f44450000000000000000000000000000000000",
+  "owner": "0x1234567890123456789012345678901234567890",
+  "isClaimed": true
+}
+```
+
+### For unclaimed code
+
+```json
+{
+  "code": "MYREFERRALCODE",
+  "bytes32Code": "0x4d59524546455252414c434f44450000000000000000000000000000000000",
+  "owner": "Code not claimed",
+  "isClaimed": false
+}
+```
+
+### For claimCode
+
+```json
+{
+  "calldata": "0x4d59524546455252414c434f4445000000000000000000000000000000000000",
+  "contractAddress": "0xe3ca135782e4a17aFb31a63ee3b15351C891A1A2",
+  "code": "MYREFERRALCODE",
+  "bytes32Code": "0x4d59524546455252414c434f44450000000000000000000000000000000000"
+}
+```
+
+## Error Responses
+
+The endpoint will return appropriate error messages for:
+- Missing action (`{"error": "Missing action"}`)
+- Missing code for getCodeInfo (`{"error": "Missing code"}`)
+- Missing code or userAddress for claimCode (`{"error": "Missing code or userAddress"}`)
+- Invalid userAddress (`{"error": "Invalid userAddress"}`)
+- Already claimed referral code (`{"error": "Referral code is already claimed"}`)

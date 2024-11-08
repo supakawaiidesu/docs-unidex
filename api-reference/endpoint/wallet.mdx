@@ -1,0 +1,144 @@
+---
+title: 'Wallet Operations'
+openapi: 'POST /api/wallet'
+description: 'Deposit or withdraw tokens directly on Arbitrum'
+---
+
+## Overview
+
+The Wallet Operations endpoint handles direct deposits and withdrawals of tokens on Arbitrum to your margin wallet. This endpoint is specifically for tokens already on the Arbitrum network - for cross-chain deposits, use the crosschaindeposit endpoint instead.
+
+## Request Body
+
+<ResponseField name="type" type="string" required>
+  Operation type. Must be either:
+  - `deposit`: Deposit tokens into margin wallet
+  - `withdraw`: Withdraw tokens from margin wallet
+</ResponseField>
+
+<ResponseField name="tokenAddress" type="string" required>
+  Contract address of the token to deposit or withdraw. 
+  Currently supported tokens:
+  - USDC: `0xaf88d065e77c8cc2239327c5edb3a432268e5831` (6 decimals)
+</ResponseField>
+
+<ResponseField name="amount" type="string" required>
+  Amount to deposit or withdraw (in token units with decimals)
+</ResponseField>
+
+## Response Fields
+
+<ResponseField name="calldata" type="string">
+  Encoded function call data for the transaction
+</ResponseField>
+
+<ResponseField name="vaultAddress" type="string">
+  Address of the vault contract
+</ResponseField>
+
+## Example Usage
+
+### Deposit USDC
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://unidexv4-api-production.up.railway.app/api/wallet" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "deposit",
+    "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    "amount": "1000.00"
+}'
+```
+
+```javascript JavaScript
+const response = await fetch('https://unidexv4-api-production.up.railway.app/api/wallet', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    type: "deposit",
+    tokenAddress: "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    amount: "1000.00"
+  })
+});
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.post(
+    'https://unidexv4-api-production.up.railway.app/api/wallet',
+    json={
+        "type": "deposit",
+        "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "amount": "1000.00"
+    }
+)
+data = response.json()
+```
+</CodeGroup>
+
+### Withdraw USDC
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://unidexv4-api-production.up.railway.app/api/wallet" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "withdraw",
+    "tokenAddress": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    "amount": "500.00"
+}'
+```
+
+```javascript JavaScript
+const response = await fetch('https://unidexv4-api-production.up.railway.app/api/wallet', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    type: "withdraw",
+    tokenAddress: "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+    amount: "500.00"
+  })
+});
+const data = await response.json();
+```
+</CodeGroup>
+
+## Example Response
+
+```json
+{
+  "calldata": "0x4d59524546455252414c434f4445000000000000000000000000000000000000",
+  "vaultAddress": "0xe3ca135782e4a17aFb31a63ee3b15351C891A1A2"
+}
+```
+
+## Implementation Notes
+
+- For deposits:
+  - Uses `depositSelf` function
+  - Token approval may be required before deposit
+  - Amount precision handled based on token decimals (6 for USDC)
+
+- For withdrawals:
+  - Uses `withdraw` function
+  - Amount must not exceed available balance
+  - Amount precision handled based on token decimals (6 for USDC)
+
+## Error Responses
+
+The endpoint will return a 400 status code for:
+- Missing type, tokenAddress, or amount
+- Invalid operation type
+- Invalid token address
+- Invalid amount format
+
+A 500 status code will be returned for:
+- Transaction encoding errors
+- Contract interaction errors

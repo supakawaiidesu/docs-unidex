@@ -1,0 +1,134 @@
+---
+title: 'Get All Markets'
+openapi: 'GET /api/markets'
+description: 'Retrieve comprehensive market data for all trading pairs'
+---
+
+## Overview
+
+The Markets endpoint provides detailed market information for all available trading pairs, including current prices, funding rates, interest rates, and market statistics.
+
+## Parameters
+
+<ParamField query="address" type="string">
+  Optional Ethereum address. If not provided, defaults to zero address.
+</ParamField>
+
+## Response Fields
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="timestamp" type="integer">
+  Current Unix timestamp in milliseconds
+</ResponseField>
+
+<ResponseField name="marketsCount" type="integer">
+  Total number of available markets
+</ResponseField>
+
+<ResponseField name="markets" type="array">
+  Array of market objects containing:
+
+  <Expandable title="Market Object Properties">
+    <ResponseField name="assetId" type="string">
+      Trading pair identifier
+    </ResponseField>
+    
+    <ResponseField name="pair" type="string">
+      Trading pair name (e.g., "BTC/USD")
+    </ResponseField>
+    
+    <ResponseField name="price" type="string">
+      Current market price with full precision
+    </ResponseField>
+    
+    <ResponseField name="fundingRate" type="number">
+      Current funding rate (as decimal, e.g., 0.0001234 = 0.01234%)
+    </ResponseField>
+    
+    <ResponseField name="borrowRateForLong" type="number">
+      Borrow rate for long positions
+    </ResponseField>
+    
+    <ResponseField name="borrowRateForShort" type="number">
+      Borrow rate for short positions
+    </ResponseField>
+    
+    <ResponseField name="longShortRatio" type="object">
+      Distribution of positions:
+      - `longPercentage`: Percentage of positions that are long
+      - `shortPercentage`: Percentage of positions that are short
+    </ResponseField>
+    
+    <ResponseField name="availableLiquidity" type="object">
+      Remaining capacity for new positions:
+      - `long`: Available liquidity for long positions
+      - `short`: Available liquidity for short positions
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Notes
+
+- All rates (funding, borrow, trading fees) are expressed as decimals (e.g., 0.0005 = 0.05%)
+- Prices maintain full precision from the Pyth Network price feeds
+- Market utilization shows the higher percentage between long and short utilization
+- Long/Short ratio defaults to 50/50 when no positions exist
+- All monetary values (open interest, liquidity) are in USD
+
+## Example Usage
+
+<CodeGroup>
+```bash cURL
+curl "https://unidexv4-api-production.up.railway.app/api/markets"
+```
+
+```javascript JavaScript
+const response = await fetch('https://unidexv4-api-production.up.railway.app/api/markets');
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.get('https://unidexv4-api-production.up.railway.app/api/markets')
+data = response.json()
+```
+</CodeGroup>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "timestamp": 1699454789123,
+  "marketsCount": 57,
+  "markets": [
+    {
+      "assetId": "1",
+      "pair": "BTC/USD",
+      "price": "75964.03651450",
+      "fundingRate": 0.0001234,
+      "borrowRateForLong": 0.0050,
+      "borrowRateForShort": 0.0025,
+      "longOpenInterest": 125.50,
+      "shortOpenInterest": 100.20,
+      "maxLongOpenInterest": 1000.00,
+      "maxShortOpenInterest": 1000.00,
+      "longTradingFee": 0.0005,
+      "shortTradingFee": 0.0005,
+      "utilization": 12.55,
+      "longShortRatio": {
+        "longPercentage": 55.61,
+        "shortPercentage": 44.39
+      },
+      "availableLiquidity": {
+        "long": 874.50,
+        "short": 899.80
+      }
+    }
+  ]
+}
+```

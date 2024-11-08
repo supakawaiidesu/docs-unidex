@@ -1,14 +1,72 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'UniDex Trading API Documentation'
 ---
 
+## Welcome to UniDex API
 
-## Welcome
+The UniDex Trading API provides programmatic access to UniDex's trading functionality, allowing you to integrate our advanced trading features into your applications.
 
-There are a few public API endpoints which can also be found open sourced on our github. We'll be covering any API that we're ready to share publicly thats made for users to also host themselves.
+## Base URL
 
-Check out our github repo links and run them locally.
+All API requests should be made to:
+```bash
+https://unidexv4-api-production.up.railway.app
+```
+
+## Authentication
+
+Currently, our public endpoints don't require authentication. However, you'll need to provide Ethereum addresses for user-specific operations.
+
+## Request Format
+
+- For GET requests, parameters should be sent as query parameters
+- For POST requests, parameters should be sent in the request body as JSON
+- All addresses should be in standard Ethereum format (0x...)
+
+## Common Parameters
+
+Many endpoints accept these common parameters:
+- `address`: Ethereum address of the user
+- `assetId`: Trading pair identifier (e.g., 1 for BTC/USD)
+
 <Note>
-  If your looking to build custom API's. Let us know and we'll give you a grant!
+  Looking to build custom integrations? We offer grants for developers! Contact us through our Discord.
 </Note>
+
+## Rate Limits
+
+Please be mindful of our rate limits:
+- Maximum of 10 requests per second per IP
+- Maximum of 100 requests per minute per IP
+
+## Error Handling
+
+The API uses conventional HTTP response codes:
+- 2xx for successful requests
+- 4xx for failed requests that can be resolved by the user
+- 5xx for internal server errors
+
+## Open Source
+
+Our API implementations are open source and can be found on our GitHub. You're welcome to:
+- Run your own instance
+- Contribute improvements
+- Report issues
+- Submit feature requests
+
+<CardGroup>
+  
+  <Card title="Getting Started" icon="rocket">
+    Start with basic API operations
+  </Card>
+  
+  <Card title="Trading Operations" icon="chart-line">
+    Learn about position management
+  </Card>
+  
+  <Card title="Wallet Operations" icon="wallet">
+    Handle deposits and withdrawals
+  </Card>
+
+</CardGroup>
