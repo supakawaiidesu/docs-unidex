@@ -1,0 +1,68 @@
+---
+title: 'Trading Account'
+---
+
+## Overview
+
+The Trading Account is a smart contract wallet (similar to Safe™) that serves as your personal gateway for cross-chain perpetual trading. It's automatically generated when you first interact with our platform and becomes your primary interface for all trading activities.
+
+## How It Works
+
+### Smart Wallet Generation
+1. Connect your regular wallet to our platform
+2. Sign a message to generate your unique Trading Account
+3. Your Trading Account is now ready to accept deposits and execute trades
+
+### Key Features
+- **Multi-Chain Deposits**: Accept funds from any supported blockchain
+- **Cross-Chain Execution**: Place orders on multiple chains simultaneously
+- **Non-Custodial**: Maintain full control of your funds at all times
+- **Zero Latency**: Execute trades simultaneously across different protocols
+- **One Click Trading**: CEX style trading with no manual confirmations required
+- **Batching**: Up to 10 individual transactions can be bundled into a single one allowing things like approvals, deposits, and trades to be executed in a single transaction.
+
+## Getting Started
+
+### Step 1: Connect Your Wallet
+Connect your browser wallet (MetaMask, Rabby, or Trust Wallet) to the UniDex interface.
+
+![Wallet Connection Interface](https://i.imgur.com/dxPlHQD.png)
+
+### Step 2: Generate Trading Account
+After connecting your wallet, look for the "establish connection" prompt. The simplest way to generate your trading account is through the deposit/withdraw button. Sign the message when prompted, and the page will refresh automatically once setup is complete.
+
+![Trading Account Generation](https://i.imgur.com/jbvvZcQ.png)
+
+### Step 3: Managing Your Funds
+
+#### Deposits
+1. Select your source network from the dropdown menu
+2. Choose a supported stablecoin from that network
+3. Enter the desired deposit amount
+   
+Note: The interface displays expected deposit amount, equity change, and any applicable network fees.
+
+![Deposit Interface](https://i.imgur.com/8fJovFA.png)
+
+#### Withdrawals
+1. Enter withdrawal amount
+2. Funds will be sent to your connected wallet in USDC on Arbitrum
+
+![Withdrawal Interface](https://i.imgur.com/Wmwsy8f.png)
+
+## Technical Implications
+
+### Cross-Chain Capabilities
+- Execute trades across multiple chains without manual network switching
+- Access different perpetual DEXs simultaneously
+- Optimize for best execution across various liquidity pools
+
+### Security Model
+- Each Trading Account is uniquely tied to your wallet address
+- Implements industry-standard security practices from established smart wallet protocols
+
+### Performance Benefits
+- Zero latency between cross-chain operations
+- Optimized gas usage through batched transactions
+- One click trading with no manual confirmations required
+

@@ -2,21 +2,31 @@
 title: 'Design overview'
 ---
 
-
 ## 1st Perp Aggregator
 
 One of the key unique features of our protocol is aggregation. Since 2021, we've been aggregating external perp protocols like XVIX, Gambit, Perpetual protocol, and GMX.
 Since then we've expanded our aggregation to include more protocols like MUX, GMX Forks, and GMXv2.
 
-## How It works
-One of the key features is how we let the user tap into these external protocols. Our user has multiple onboarding choices to decide the orderflow of his trade based on his risk appetite.
+## How It Works
 
-| Method   | Access          |   Chains     |         Restrictions                     |
-| ----------- | ------------------------ | ---------------------- | ---------------------- |
-| Biconomy Smart Wallet | `Full` | All chains | Requires funding an external wallet once
-| Multicall Contract | `Limited` | All chains | Some Perp DEXs dont allow orders made by smart contracts
-| User Wallet (MetaMask) | `Low` | All chains | While all DEXs are supported, the user has to confirm each order manually which is not ideal for latency sensitive trades
+Our protocol enables seamless access to multiple perpetual exchanges through a unique smart wallet system called "Trading Account". Here's how it works:
 
-By partnering with Biconomy protocol, our smart wallet is able to execute orders on behalf of the user without the user having to confirm each order manually. Users pending trades are also batched together allowing up to 10 individual transactions to be bundled into a single one.
+### Trading Account
+The Trading Account is a smart contract wallet (similar to Safe™) that serves as your gateway to cross-chain perpetual trading. This innovative approach allows you to:
+- Deposit funds from any supported chain
+- Execute trades across multiple chains simultaneously
+- Access various perpetual DEXs without chain-switching friction
 
-We wouldnt force anyone to use the smart wallet. Users can still use their own wallets to trade on our platform by doing so they would have to confirm each order manually, but they wont have to trust external smart wallets with their funds. Certain actions like collateral swaps wouldnt be supported for trades executed outside the safe wallet due to latency issues.
+### User Flow
+1. Visit the platform
+2. Connect your wallet
+3. Sign a message to generate your Trading Account
+4. Fund your Trading Account from any supported chain
+5. Start trading on any supported perpetual DEX across any supported chain
+
+### Key Benefits
+- **Cross-chain Trading**: Place orders on multiple chains without switching networks
+- **Zero Latency**: Execute trades simultaneously across different protocols
+- **Unified Liquidity**: Access deep liquidity pools from various perpetual DEXs
+- **Simplified Experience**: Manage all your positions through a single interface
+

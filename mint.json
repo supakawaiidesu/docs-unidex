@@ -72,11 +72,11 @@
       "pages": [
         {
             "group": "Native Perps",
-            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Fees", "Leverage-Trading/Referrals", "Leverage-Trading/limits"]
+            "pages": ["Leverage-Trading/Design overview", "Leverage-Trading/Trading Account", "Leverage-Trading/Liquidity Pools", "Leverage-Trading/Price Feeds", "Leverage-Trading/Intent Based Orders", "Leverage-Trading/PrMM Pools", "Leverage-Trading/Fees", "Leverage-Trading/Referrals", "Leverage-Trading/limits"]
         },
         {
           "group": "Aggregated Perps",
-          "pages": ["perpaggregation/Design overview", "perpaggregation/Fees", "perpaggregation/AggregatedPlatforms"]
+          "pages": ["perpaggregation/Design overview", "perpaggregation/Fees"]
         },
         {
           "group": "Forge SDK / Whitelabel",
