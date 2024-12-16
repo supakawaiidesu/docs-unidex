@@ -18,7 +18,7 @@
   "topbarLinks": [
     {
       "name": "Discord",
-      "url": "https://discord.gg/unidex"
+      "url": "https://discord.gg/unidexexchange"
     },
     {
       "name": "Molten Docs",
@@ -39,7 +39,7 @@
     {
       "name": "Discord",
       "icon": "Discord",
-      "url": "https://discord.gg/unidex"
+      "url": "https://discord.gg/unidexexchange"
     },
     {
       "name": "Molten Docs",
@@ -115,7 +115,7 @@
   "footerSocials": {
     "twitter": "https://twitter.com/unidexfinance",
     "github": "https://github.com/unidexfinance",
-    "discord": "https:/discord.gg/unidex",
+    "discord": "https:/discord.gg/unidexexchange",
     "telegram": "https://t.me/unidexfinance"
   }
 }
